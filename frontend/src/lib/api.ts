@@ -65,3 +65,45 @@ export const watchlist = {
   status: (userId: string, carId: string) =>
     request<{ watching: boolean }>(`/watchlist/${userId}/${carId}/status`),
 };
+
+export const recovery = {
+  getQuestions: (email: string) =>
+    request<{ question1: string; question2: string; question3: string }>(
+      `/auth/recover/${encodeURIComponent(email)}/questions`
+    ),
+  resetPassword: (email: string, answers: [string, string, string], newPassword: string) =>
+    request('/auth/recover/' + encodeURIComponent(email), {
+      method: 'POST',
+      body: JSON.stringify({ answers, newPassword }),
+    }),
+};
+
+export const bookings = {
+  create: (data: { userId: string; carId: string; startDate: string; endDate: string }) =>
+    request<import('../types').Booking>('/bookings', { method: 'POST', body: JSON.stringify(data) }),
+  getForUser: (userId: string) =>
+    request<import('../types').BookingWithCar[]>(`/bookings/user/${userId}`),
+  getForCar: (carId: string) =>
+    request<import('../types').Booking[]>(`/bookings/car/${carId}`),
+  cancel: (id: string, userId: string) =>
+    request(`/bookings/${id}/cancel`, { method: 'PATCH', body: JSON.stringify({ userId }) }),
+  review: (id: string, userId: string, rating: number, comment: string) =>
+    request(`/bookings/${id}/review`, { method: 'PATCH', body: JSON.stringify({ userId, rating, comment }) }),
+};
+
+export const payment = {
+  process: (userId: string, bookingId: string, amount: number) =>
+    request<{ success: boolean; transactionId: string; message: string }>('/payment', {
+      method: 'POST',
+      body: JSON.stringify({ userId, bookingId, amount }),
+    }),
+};
+
+export const chat = {
+  send: (senderId: string, receiverId: string, content: string) =>
+    request('/chat/send', { method: 'POST', body: JSON.stringify({ senderId, receiverId, content }) }),
+  getConversation: (userId: string, otherId: string) =>
+    request<import('../types').Message[]>(`/chat/conversation/${userId}/${otherId}`),
+  getContacts: (userId: string) =>
+    request<import('../types').User[]>(`/chat/contacts/${userId}`),
+};

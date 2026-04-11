@@ -37,6 +37,16 @@ const IconLogin = () => (
     <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/>
   </svg>
 )
+const IconBooking = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+  </svg>
+)
+const IconChat = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+  </svg>
+)
 
 export default function Sidebar() {
   const { user, logout } = useAuth()
@@ -85,6 +95,12 @@ export default function Sidebar() {
             <div className="sidebar-section">
               <Link to="/cars/add" className={`sidebar-item ${isAdd ? 'active' : ''}`}>
                 <IconPlus /><span>List a Car</span>
+              </Link>
+              <Link to="/bookings" className={`sidebar-item ${pathname === '/bookings' ? 'active' : ''}`}>
+                <IconBooking /><span>My Bookings</span>
+              </Link>
+              <Link to="/chat" className={`sidebar-item ${pathname.startsWith('/chat') ? 'active' : ''}`}>
+                <IconChat /><span>Messages</span>
               </Link>
               <Link to="/notifications" className={`sidebar-item ${pathname === '/notifications' ? 'active' : ''}`}>
                 <IconBell /><span>Notifications</span>
