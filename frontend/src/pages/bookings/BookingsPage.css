@@ -1,0 +1,179 @@
+.bookings-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+
+.bookings-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 14px 10px;
+  margin-bottom: -1px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+
+.bookings-tab:hover {
+  color: var(--text);
+}
+
+.bookings-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.bookings-tab-count {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 11px;
+  padding: 1px 6px;
+  color: var(--text-3);
+}
+
+.bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.booking-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.booking-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.booking-car-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.booking-car-year {
+  font-size: 12px;
+  color: var(--text-3);
+  font-weight: 400;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2px 6px;
+}
+
+.booking-dates {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-top: 4px;
+}
+
+.booking-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.booking-price-note {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-3);
+  margin-left: 4px;
+}
+
+.booking-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+/* review form below card */
+.review-form {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-form-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.review-textarea {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 13px;
+  padding: 8px 10px;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.review-textarea:focus {
+  border-color: var(--border-2);
+  outline: none;
+}
+
+.star-rating {
+  display: flex;
+  gap: 4px;
+}
+
+.star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  color: var(--text-3);
+  padding: 0;
+  line-height: 1;
+  transition: color 0.1s, transform 0.1s;
+}
+
+.star.active {
+  color: var(--yellow);
+}
+
+.star:hover {
+  transform: scale(1.15);
+}
+
+.booking-existing-review {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.booking-review-comment {
+  color: var(--text-2);
+  font-style: italic;
+}

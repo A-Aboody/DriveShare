@@ -100,6 +100,9 @@ export default function LoginPage() {
           <p className="auth-link">
             Don't have an account? <Link to="/register">Create one</Link>
           </p>
+          <p className="auth-link">
+            <Link to="/forgot-password">Forgot your password?</Link>
+          </p>
         </div>
       </div>
     </div>

@@ -129,6 +129,9 @@ export default function CarDetailPage() {
               {watching ? '★ Watching' : '☆ Watch this car'}
             </button>
           )}
+          {!isOwner && user && car.available && (
+            <Link to={`/cars/${car.id}/book`} className="btn btn-primary btn-lg">Book this car</Link>
+          )}
           {!user && (
             <Link to="/login" className="btn btn-primary btn-lg">Sign in to Watch</Link>
           )}

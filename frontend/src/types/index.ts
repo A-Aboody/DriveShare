@@ -57,3 +57,27 @@ export interface Session {
   token: string | null;
   isActive: boolean;
 }
+
+export interface BookingWithCar extends Booking {
+  car: { id: string; model: string; year: number; price: number; location: string };
+  user?: { id: string; email: string };
+}
+
+export interface Payment {
+  id: string;
+  userId: string;
+  bookingId: string;
+  amount: number;
+  status: string;
+  createdAt: string;
+}
+
+export interface Message {
+  id: string;
+  senderId: string;
+  receiverId: string;
+  content: string;
+  createdAt: string;
+  sender?: { id: string; email: string };
+  receiver?: { id: string; email: string };
+}
