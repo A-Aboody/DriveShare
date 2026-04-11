@@ -1,0 +1,73 @@
+.car-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.15s, transform 0.15s;
+  cursor: pointer;
+}
+
+.car-card:hover {
+  border-color: var(--border-2);
+  transform: translateY(-2px);
+}
+
+.car-card-top {
+  height: 88px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 12px 14px;
+}
+
+.car-card-body {
+  padding: 14px 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.car-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.car-card-model {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.car-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-3);
+  flex-wrap: wrap;
+}
+
+.car-card-price {
+  padding: 10px 16px 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.car-card-price-amount {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.car-card-price-unit {
+  font-size: 12px;
+  color: var(--text-3);
+}
