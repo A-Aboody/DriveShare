@@ -1,0 +1,396 @@
+/* Add Car — Immersive wizard */
+.add-car {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  min-height: 100%;
+}
+
+/* Left: form panel */
+.add-car-form-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 52px 48px;
+  overflow-y: auto;
+}
+
+.add-car-form-inner {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Steps bar */
+.add-car-steps {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 60px;
+}
+
+.add-car-step-dot {
+  width: 32px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--border-2);
+  transition: background 0.25s;
+}
+
+.add-car-step-dot.active {
+  background: var(--accent);
+}
+
+.add-car-step-dot.done {
+  background: var(--text-3);
+}
+
+/* Step content */
+.add-car-step-eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+  margin-bottom: 12px;
+}
+
+.add-car-step-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.add-car-step-sub {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin-bottom: 44px;
+}
+
+/* Fields */
+.add-car-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.add-car-field-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.add-car-input-lg {
+  height: 52px;
+  padding: 0 16px;
+  background: var(--bg-3);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.add-car-input-lg:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
+}
+
+.add-car-input-lg::placeholder { color: var(--text-3); }
+
+/* Year row: stepper + text input */
+.add-car-year-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  background: var(--bg-3);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+
+.add-car-year-row:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
+}
+
+.add-car-year-btn {
+  width: 52px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--text-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.1s, color 0.1s;
+  user-select: none;
+}
+
+.add-car-year-btn:hover { background: var(--bg-hover); color: var(--text); }
+
+.add-car-year-input {
+  flex: 1;
+  height: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  text-align: center;
+  outline: none;
+  width: 0;
+  -moz-appearance: textfield;
+}
+
+.add-car-year-input::-webkit-outer-spin-button,
+.add-car-year-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.add-car-year-hint {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 4px;
+}
+
+/* Mileage chips */
+.add-car-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.add-car-chip {
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-2);
+  background: var(--bg-3);
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.12s;
+  user-select: none;
+}
+
+.add-car-chip:hover { border-color: var(--text-3); color: var(--text); }
+
+.add-car-chip.selected {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  color: var(--text);
+}
+
+/* Price input */
+.add-car-price-wrap {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  background: var(--bg-3);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.add-car-price-wrap:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
+}
+
+.add-car-price-prefix {
+  padding: 0 14px;
+  font-size: 18px;
+  color: var(--text-3);
+  border-right: 1px solid var(--border-2);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.add-car-price-input {
+  flex: 1;
+  height: 100%;
+  padding: 0 14px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 600;
+  outline: none;
+  width: 0;
+  -moz-appearance: textfield;
+}
+
+.add-car-price-input::-webkit-outer-spin-button,
+.add-car-price-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.add-car-price-input::placeholder { color: var(--text-3); font-weight: 400; font-size: 16px; }
+
+.add-car-price-suffix {
+  padding: 0 14px;
+  font-size: 13px;
+  color: var(--text-3);
+  flex-shrink: 0;
+}
+
+/* Earnings hint */
+.add-car-earnings {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  background: rgba(74, 222, 128, 0.07);
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--green);
+  margin-top: 4px;
+}
+
+/* Error */
+.add-car-error {
+  padding: 12px 14px;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--red);
+  margin-bottom: 20px;
+}
+
+/* Nav */
+.add-car-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 48px;
+}
+
+/* Right: preview panel */
+.add-car-preview-panel {
+  border-left: 1px solid var(--border);
+  background: var(--bg-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 44px;
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.add-car-preview-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+  margin-bottom: 24px;
+  align-self: flex-start;
+}
+
+/* Preview card */
+.add-car-preview-card {
+  width: 100%;
+  max-width: 300px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.add-car-preview-top {
+  height: 130px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 14px 16px;
+  transition: background 0.4s ease;
+}
+
+.add-car-preview-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.add-car-preview-model {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.add-car-preview-model-placeholder {
+  width: 120px;
+  height: 14px;
+  background: var(--bg-3);
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+.add-car-preview-meta {
+  font-size: 12px;
+  color: var(--text-3);
+  min-height: 18px;
+}
+
+.add-car-preview-footer {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.add-car-preview-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.add-car-preview-price-unit {
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.add-car-preview-hint {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--text-3);
+  text-align: center;
+  line-height: 1.7;
+  align-self: center;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .add-car {
+    grid-template-columns: 1fr;
+  }
+  .add-car-preview-panel {
+    display: none;
+  }
+  .add-car-form-panel {
+    padding: 32px 24px;
+  }
+}
