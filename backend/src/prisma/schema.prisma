@@ -4,6 +4,7 @@
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
+  moduleFormat = "commonjs"
 }
 
 datasource db {
@@ -14,8 +15,11 @@ model User {
   id                String           @id @default(uuid())
   email             String           @unique
   password          String
+  securityQuestion1 String
   securityAnswer1   String
+  securityQuestion2 String
   securityAnswer2   String
+  securityQuestion3 String
   securityAnswer3   String
   cars              Car[]
   bookings          Booking[]
