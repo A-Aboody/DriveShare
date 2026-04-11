@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { chat as chatApi } from '../../lib/api'
 import { useAuth } from '../../context/AuthContext'
 import type { User, Message } from '../../types'
@@ -12,6 +12,7 @@ function formatTime(iso: string) {
 export default function ChatPage() {
   const { user } = useAuth()
   const navigate  = useNavigate()
+  const [searchParams] = useSearchParams()
 
   const [contacts, setContacts]       = useState<User[]>([])
   const [active, setActive]           = useState<User | null>(null)
@@ -25,9 +26,26 @@ export default function ChatPage() {
   useEffect(() => {
     if (!user) { navigate('/login'); return }
     chatApi.getContacts(user.id)
-      .then(data => { setContacts(data); setLoadingContacts(false) })
+      .then(data => {
+        // If arriving from a car listing via ?with=<id>&email=<email>,
+        // inject that user into contacts so the conversation can start
+        // even before any messages exist (all sends still go through ChatMediator)
+        const withId    = searchParams.get('with')
+        const withEmail = searchParams.get('email')
+        let list = data
+        if (withId && withEmail) {
+          const alreadyPresent = data.some(c => c.id === withId)
+          if (!alreadyPresent) {
+            list = [{ id: withId, email: decodeURIComponent(withEmail), createdAt: '' }, ...data]
+          }
+          // Pre-select the contact regardless
+          setActive({ id: withId, email: decodeURIComponent(withEmail), createdAt: '' })
+        }
+        setContacts(list)
+        setLoadingContacts(false)
+      })
       .catch(() => setLoadingContacts(false))
-  }, [user, navigate])
+  }, [user, navigate, searchParams])
 
   useEffect(() => {
     if (!user || !active) return
