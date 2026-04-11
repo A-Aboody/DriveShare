@@ -132,6 +132,14 @@ export default function CarDetailPage() {
           {!isOwner && user && car.available && (
             <Link to={`/cars/${car.id}/book`} className="btn btn-primary btn-lg">Book this car</Link>
           )}
+          {!isOwner && user && (
+            <Link
+              to={`/chat?with=${car.ownerId}&email=${encodeURIComponent(car.owner?.email ?? car.ownerId)}`}
+              className="btn btn-secondary btn-lg"
+            >
+              Message owner
+            </Link>
+          )}
           {!user && (
             <Link to="/login" className="btn btn-primary btn-lg">Sign in to Watch</Link>
           )}
