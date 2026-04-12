@@ -83,12 +83,25 @@ export const bookings = {
     request<import('../types').Booking>('/bookings', { method: 'POST', body: JSON.stringify(data) }),
   getForUser: (userId: string) =>
     request<import('../types').BookingWithCar[]>(`/bookings/user/${userId}`),
+  getForOwner: (ownerId: string) =>
+    request<import('../types').BookingWithCar[]>(`/bookings/owner/${ownerId}`),
   getForCar: (carId: string) =>
     request<import('../types').Booking[]>(`/bookings/car/${carId}`),
   cancel: (id: string, userId: string) =>
     request(`/bookings/${id}/cancel`, { method: 'PATCH', body: JSON.stringify({ userId }) }),
   review: (id: string, userId: string, rating: number, comment: string) =>
     request(`/bookings/${id}/review`, { method: 'PATCH', body: JSON.stringify({ userId, rating, comment }) }),
+};
+
+export const reviews = {
+  create: (data: {
+    reviewerId: string; revieweeId: string; bookingId: string;
+    rating: number; comment: string; role: string;
+  }) => request('/reviews', { method: 'POST', body: JSON.stringify(data) }),
+  getProfile: (userId: string) =>
+    request<import('../types').UserProfile>(`/reviews/profile/${userId}`),
+  getGiven: (userId: string) =>
+    request<import('../types').ReviewGiven[]>(`/reviews/given/${userId}`),
 };
 
 export const payment = {

@@ -34,6 +34,12 @@ export class BookingsController {
     return this.bookingsService.getCarBookings(carId);
   }
 
+  // GET /bookings/owner/:ownerId — all bookings for cars owned by this user
+  @Get('owner/:ownerId')
+  getOwnerBookings(@Param('ownerId') ownerId: string) {
+    return this.bookingsService.getOwnerBookings(ownerId);
+  }
+
   // GET /bookings/:id — fetch a single booking by id
   @Get(':id')
   getBooking(@Param('id') id: string) {

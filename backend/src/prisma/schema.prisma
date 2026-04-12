@@ -26,6 +26,8 @@ model User {
   watchlist         WatchlistEntry[]
   sentMessages      Message[]        @relation("SentMessages")
   receivedMessages  Message[]        @relation("ReceivedMessages")
+  reviewsGiven      Review[]         @relation("ReviewsGiven")
+  reviewsReceived   Review[]         @relation("ReviewsReceived")
   createdAt         DateTime         @default(now())
 }
 
@@ -83,4 +85,17 @@ model Payment {
   amount    Float
   status    String
   createdAt DateTime @default(now())
+}
+
+model Review {
+  id         String   @id @default(uuid())
+  reviewer   User     @relation("ReviewsGiven", fields: [reviewerId], references: [id])
+  reviewerId String
+  reviewee   User     @relation("ReviewsReceived", fields: [revieweeId], references: [id])
+  revieweeId String
+  bookingId  String
+  rating     Int
+  comment    String   @default("")
+  role       String   // "renter" | "owner"
+  createdAt  DateTime @default(now())
 }
