@@ -114,7 +114,12 @@ export default function CarDetailPage() {
           <div className="car-detail-owner-avatar">{ownerInitial}</div>
           <div className="car-detail-owner-info">
             <div className="car-detail-owner-label">Listed by</div>
-            <div className="car-detail-owner-email">{car.owner?.email ?? car.ownerId}</div>
+            <Link
+              to={`/profile/${car.ownerId}`}
+              style={{ color: 'var(--text)', textDecoration: 'none', fontWeight: 500 }}
+            >
+              {car.owner?.email ?? car.ownerId}
+            </Link>
           </div>
         </div>
 

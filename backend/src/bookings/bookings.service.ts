@@ -136,6 +136,21 @@ export class BookingsService {
   }
 
   /**
+   * Get all bookings for cars owned by a given user, including renter info.
+   * Used by the owner to see who rented their cars and leave reviews.
+   */
+  async getOwnerBookings(ownerId: string) {
+    return prisma.booking.findMany({
+      where: { car: { ownerId } },
+      include: {
+        car: { select: { id: true, model: true, year: true, price: true, location: true } },
+        user: { select: { id: true, email: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  /**
    * Add a rating and comment to a completed booking. Only the renter can review,
    * and only if the booking is in 'confirmed' status.
    */

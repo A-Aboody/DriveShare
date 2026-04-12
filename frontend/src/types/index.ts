@@ -81,3 +81,28 @@ export interface Message {
   sender?: { id: string; email: string };
   receiver?: { id: string; email: string };
 }
+
+export interface Review {
+  id: string;
+  reviewerId: string;
+  revieweeId: string;
+  bookingId: string;
+  rating: number;
+  comment: string;
+  role: string;
+  createdAt: string;
+  reviewer: { id: string; email: string };
+}
+
+export interface ReviewGiven {
+  bookingId: string;
+  role: string;
+  rating: number;
+  comment: string;
+}
+
+export interface UserProfile {
+  user: { id: string; email: string; createdAt: string };
+  reviews: Review[];
+  averageRating: number | null;
+}

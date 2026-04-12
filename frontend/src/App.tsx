@@ -13,6 +13,7 @@ import BookingsPage from './pages/bookings/BookingsPage'
 import BookCarPage from './pages/bookings/BookCarPage'
 import PaymentPage from './pages/payment/PaymentPage'
 import ChatPage from './pages/chat/ChatPage'
+import ProfilePage from './pages/profile/ProfilePage'
 
 function Layout() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/bookings" element={<BookingsPage />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/profile/:userId" element={<ProfilePage />} />
       </Route>
     </Routes>
   )
