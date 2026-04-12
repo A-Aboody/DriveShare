@@ -91,6 +91,7 @@ driveshare/
 - In-app messaging between renters and owners
 - Simulated payment processing with proxy-layer logging
 - Notification system for booking and payment events
+- ratings and review system for owner and renter
 
 ---
 
