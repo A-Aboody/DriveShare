@@ -100,6 +100,8 @@ export const reviews = {
   }) => request('/reviews', { method: 'POST', body: JSON.stringify(data) }),
   getProfile: (userId: string) =>
     request<import('../types').UserProfile>(`/reviews/profile/${userId}`),
+  updateBio: (userId: string, bio: string) =>
+    request(`/reviews/profile/${userId}/bio`, { method: 'PATCH', body: JSON.stringify({ bio }) }),
   getGiven: (userId: string) =>
     request<import('../types').ReviewGiven[]>(`/reviews/given/${userId}`),
 };

@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { PrismaClient } from '../generated/prisma/client.js';
 import { PrismaPg } from '@prisma/adapter-pg';
 import type { CreateReviewDto } from './dto/create-review.dto.js';
@@ -16,7 +16,6 @@ export class ReviewsService {
       throw new BadRequestException('Rating must be between 1 and 5');
     }
 
-    // Prevent duplicate review for the same booking + role combination
     const existing = await prisma.review.findFirst({
       where: { bookingId, reviewerId, role },
     });
@@ -33,30 +32,56 @@ export class ReviewsService {
     });
   }
 
-  /** All reviews received by a user, plus profile summary */
+  /**
+   * Full profile for a user — basic info, bio, and reviews split into
+   * two buckets: reviews left by renters (the user was acting as owner)
+   * and reviews left by owners (the user was acting as renter).
+   */
   async getProfile(userId: string) {
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true, email: true, createdAt: true },
+      select: { id: true, email: true, bio: true, createdAt: true },
     });
 
-    const reviews = await prisma.review.findMany({
+    if (!user) throw new NotFoundException('User not found');
+
+    const allReviews = await prisma.review.findMany({
       where: { revieweeId: userId },
-      include: {
-        reviewer: { select: { id: true, email: true } },
-      },
+      include: { reviewer: { select: { id: true, email: true } } },
       orderBy: { createdAt: 'desc' },
     });
 
-    const averageRating =
-      reviews.length > 0
-        ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
-        : null;
+    // role = 'renter' means the reviewer was a renter, so this user was the owner
+    const asOwnerReviews  = allReviews.filter(r => r.role === 'renter');
+    // role = 'owner' means the reviewer was an owner, so this user was the renter
+    const asRenterReviews = allReviews.filter(r => r.role === 'owner');
 
-    return { user, reviews, averageRating };
+    const avg = (arr: typeof allReviews) =>
+      arr.length > 0 ? arr.reduce((s, r) => s + r.rating, 0) / arr.length : null;
+
+    return {
+      user,
+      asOwnerReviews,
+      asRenterReviews,
+      averageAsOwner:  avg(asOwnerReviews),
+      averageAsRenter: avg(asRenterReviews),
+      overallAverage:  avg(allReviews),
+      totalReviews:    allReviews.length,
+    };
   }
 
-  /** Reviews the given user has left (given), keyed by bookingId + role for easy lookup */
+  /** Update a user's bio */
+  async updateBio(userId: string, bio: string) {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new NotFoundException('User not found');
+    return prisma.user.update({
+      where: { id: userId },
+      data: { bio },
+      select: { id: true, email: true, bio: true, createdAt: true },
+    });
+  }
+
+  /** Reviews the given user has already submitted — for UI duplicate prevention */
   async getReviewsGiven(userId: string) {
     return prisma.review.findMany({
       where: { reviewerId: userId },

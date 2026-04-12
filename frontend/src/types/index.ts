@@ -102,7 +102,11 @@ export interface ReviewGiven {
 }
 
 export interface UserProfile {
-  user: { id: string; email: string; createdAt: string };
-  reviews: Review[];
-  averageRating: number | null;
+  user: { id: string; email: string; bio: string; createdAt: string };
+  asOwnerReviews:  Review[];
+  asRenterReviews: Review[];
+  averageAsOwner:  number | null;
+  averageAsRenter: number | null;
+  overallAverage:  number | null;
+  totalReviews:    number;
 }

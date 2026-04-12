@@ -1,12 +1,12 @@
 .profile-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
   padding: 24px;
   background: var(--bg-2);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .profile-avatar {
@@ -25,18 +25,61 @@
 
 .profile-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .profile-email {
   font-size: 17px;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 4px;
 }
 
 .profile-meta {
   font-size: 13px;
   color: var(--text-3);
+  margin-bottom: 6px;
+}
+
+.profile-bio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.profile-bio-text {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+.profile-bio-edit-btn {
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.profile-bio-edit {
+  margin-top: 4px;
+}
+
+.profile-bio-textarea {
+  width: 100%;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 13px;
+  padding: 8px 10px;
+  resize: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.profile-bio-textarea:focus {
+  border-color: var(--border-2);
+  outline: none;
 }
 
 .profile-rating-summary {
@@ -44,6 +87,7 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 2px;
+  flex-shrink: 0;
 }
 
 .profile-rating-value {
@@ -64,19 +108,67 @@
   color: var(--text-3);
 }
 
+/* Review sections */
+.profile-review-section {
+  margin-bottom: 28px;
+}
+
+.profile-review-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
 .profile-section-title {
   font-size: 14px;
   font-weight: 600;
-  color: var(--text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 14px;
+  color: var(--text);
 }
 
+.profile-section-sub {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+
+.profile-section-avg {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.profile-section-avg-val {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--yellow);
+  line-height: 1;
+}
+
+.profile-section-avg-stars {
+  font-size: 13px;
+  color: var(--yellow);
+}
+
+.profile-section-avg-count {
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.profile-empty-section {
+  font-size: 13px;
+  color: var(--text-3);
+  padding: 16px 0;
+}
+
+/* Review cards */
 .review-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .review-card {
@@ -98,8 +190,8 @@
 }
 
 .review-card-avatar {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--bg-3);
   border: 1px solid var(--border);
@@ -107,7 +199,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   flex-shrink: 0;
 }
@@ -118,16 +210,6 @@
   color: var(--text);
 }
 
-.review-card-role {
-  font-size: 11px;
-  color: var(--text-3);
-  background: var(--bg-3);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1px 7px;
-  margin-left: 6px;
-}
-
 .review-card-meta {
   display: flex;
   align-items: center;
@@ -136,7 +218,7 @@
 
 .review-card-stars {
   color: var(--yellow);
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 1px;
 }
 
@@ -149,5 +231,5 @@
   font-size: 13px;
   color: var(--text-2);
   font-style: italic;
-  padding-left: 40px;
+  padding-left: 38px;
 }
