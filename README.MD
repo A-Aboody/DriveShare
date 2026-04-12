@@ -41,7 +41,7 @@ A peer-to-peer car rental web application built as a senior design project for C
 | Builder | `backend/src/cars/` | CarBuilder constructs Car entities step by step |
 | Chain of Responsibility | `backend/src/password/` | Three sequential security question handlers for password recovery |
 | Observer | `backend/src/watchlist/` | Renters are notified when a watched car changes price or availability |
-| Mediator | `backend/src/chat/` | ChatMediator routes all messages between users |
+| Mediator | `backend/src/chat/` | ChatMediator routes all messages between users & authProvider serves as the mediator for every ui element |
 | Proxy | `backend/src/payment/` | PaymentProxy wraps RealPaymentService with auth checks and transaction logging |
 
 ---
