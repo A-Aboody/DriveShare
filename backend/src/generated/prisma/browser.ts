@@ -47,3 +47,8 @@ export type Message = Prisma.MessageModel
  * 
  */
 export type Payment = Prisma.PaymentModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel

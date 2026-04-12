@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Param } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Body, Param } from '@nestjs/common';
 import { ReviewsService } from './reviews.service.js';
 import type { CreateReviewDto } from './dto/create-review.dto.js';
 
@@ -6,19 +6,25 @@ import type { CreateReviewDto } from './dto/create-review.dto.js';
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
 
-  /** POST /reviews — submit a review (renter reviewing owner or owner reviewing renter) */
+  /** POST /reviews — submit a review */
   @Post()
   create(@Body() dto: CreateReviewDto) {
     return this.reviewsService.createReview(dto);
   }
 
-  /** GET /reviews/profile/:userId — user profile with all received reviews + avg rating */
+  /** GET /reviews/profile/:userId — user profile with split reviews and avg ratings */
   @Get('profile/:userId')
   getProfile(@Param('userId') userId: string) {
     return this.reviewsService.getProfile(userId);
   }
 
-  /** GET /reviews/given/:userId — reviews this user has already submitted (for UI state) */
+  /** PATCH /reviews/profile/:userId/bio — update bio */
+  @Patch('profile/:userId/bio')
+  updateBio(@Param('userId') userId: string, @Body('bio') bio: string) {
+    return this.reviewsService.updateBio(userId, bio);
+  }
+
+  /** GET /reviews/given/:userId — reviews already submitted by this user */
   @Get('given/:userId')
   getGiven(@Param('userId') userId: string) {
     return this.reviewsService.getReviewsGiven(userId);

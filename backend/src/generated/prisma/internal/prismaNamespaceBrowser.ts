@@ -56,7 +56,8 @@ export const ModelName = {
   Booking: 'Booking',
   WatchlistEntry: 'WatchlistEntry',
   Message: 'Message',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  Review: 'Review'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -85,6 +86,7 @@ export const UserScalarFieldEnum = {
   securityAnswer2: 'securityAnswer2',
   securityQuestion3: 'securityQuestion3',
   securityAnswer3: 'securityAnswer3',
+  bio: 'bio',
   createdAt: 'createdAt'
 } as const
 
@@ -151,6 +153,20 @@ export const PaymentScalarFieldEnum = {
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  reviewerId: 'reviewerId',
+  revieweeId: 'revieweeId',
+  bookingId: 'bookingId',
+  rating: 'rating',
+  comment: 'comment',
+  role: 'role',
+  createdAt: 'createdAt'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -2,31 +2,95 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { reviews as reviewsApi } from '../../lib/api'
 import { useAuth } from '../../context/AuthContext'
-import type { UserProfile } from '../../types'
+import type { UserProfile, Review } from '../../types'
 import './ProfilePage.css'
 
-function starsDisplay(rating: number) {
-  const full = Math.round(rating)
-  return '★'.repeat(full) + '☆'.repeat(5 - full)
+const stars = (n: number) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n))
+
+const fmtDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+
+const fmtMember = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+
+function RevCard({ review }: { review: Review }) {
+  return (
+    <div className="rev-card">
+      <div className="rev-card-top">
+        <div className="rev-card-reviewer">
+          <div className="rev-card-avatar">{review.reviewer.email[0].toUpperCase()}</div>
+          <span className="rev-card-email">{review.reviewer.email}</span>
+        </div>
+        <div className="rev-card-right">
+          <span className="rev-card-stars">{stars(review.rating)}</span>
+          <span className="rev-card-date">{fmtDate(review.createdAt)}</span>
+        </div>
+      </div>
+      {review.comment && <div className="rev-card-comment">"{review.comment}"</div>}
+    </div>
+  )
 }
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+function ReviewCol({ title, subtitle, reviews, average }: {
+  title: string
+  subtitle: string
+  reviews: Review[]
+  average: number | null
+}) {
+  return (
+    <div className="profile-review-col">
+      <div className="profile-review-col-header">
+        <div>
+          <div className="profile-review-col-title">{title}</div>
+          <div style={{ fontSize: 11, color: 'var(--text-3)', marginTop: 2 }}>{subtitle}</div>
+        </div>
+        {average !== null ? (
+          <div className="profile-review-col-avg">
+            <span className="profile-review-col-stars">{stars(average)}</span>
+            <span className="profile-review-col-val">{average.toFixed(1)}</span>
+          </div>
+        ) : (
+          <span style={{ fontSize: 11, color: 'var(--text-3)' }}>No reviews</span>
+        )}
+      </div>
+      {reviews.length === 0
+        ? <div className="profile-review-none">Nothing here yet.</div>
+        : reviews.map(r => <RevCard key={r.id} review={r} />)
+      }
+    </div>
+  )
 }
 
 export default function ProfilePage() {
   const { userId } = useParams<{ userId: string }>()
   const { user: me } = useAuth()
-  const [profile, setProfile] = useState<UserProfile | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+
+  const [profile, setProfile]   = useState<UserProfile | null>(null)
+  const [loading, setLoading]   = useState(true)
+  const [error,   setError]     = useState('')
+
+  const [editingBio, setEditingBio] = useState(false)
+  const [bioText,    setBioText]    = useState('')
+  const [savingBio,  setSavingBio]  = useState(false)
 
   useEffect(() => {
     if (!userId) return
+    setLoading(true)
     reviewsApi.getProfile(userId)
-      .then(data => { setProfile(data); setLoading(false) })
-      .catch(() => { setError('Profile not found'); setLoading(false) })
+      .then(data => { setProfile(data); setBioText(data.user.bio ?? ''); setLoading(false) })
+      .catch(e => { setError((e as Error).message || 'Profile not found'); setLoading(false) })
   }, [userId])
+
+  const saveBio = async () => {
+    if (!userId) return
+    setSavingBio(true)
+    try {
+      await reviewsApi.updateBio(userId, bioText)
+      setProfile(p => p ? { ...p, user: { ...p.user, bio: bioText } } : p)
+      setEditingBio(false)
+    } catch { /* ignore */ }
+    finally { setSavingBio(false) }
+  }
 
   if (loading) return <div className="loading"><div className="spinner" /></div>
   if (error || !profile) return (
@@ -36,75 +100,106 @@ export default function ProfilePage() {
     </div>
   )
 
-  const { user, reviews, averageRating } = profile
-  const initial = user.email[0].toUpperCase()
-  const isOwnProfile = me?.id === user.id
+  const { user, asOwnerReviews, asRenterReviews, averageAsOwner, averageAsRenter, overallAverage, totalReviews } = profile
+  const isOwn = me?.id === user.id
 
   return (
-    <div className="page">
-      <div className="page-header">
-        <div>
-          <h1 style={{ fontSize: 20, fontWeight: 600, letterSpacing: '-0.4px', color: 'var(--text)', margin: 0 }}>
-            {isOwnProfile ? 'My Profile' : 'User Profile'}
-          </h1>
-        </div>
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
 
-      {/* Profile header card */}
-      <div className="profile-header">
-        <div className="profile-avatar">{initial}</div>
-        <div className="profile-info">
+      {/* Hero banner */}
+      <div className="profile-hero" />
+
+      {/* Identity */}
+      <div className="profile-identity">
+        <div className="profile-avatar">{user.email[0].toUpperCase()}</div>
+        <div className="profile-identity-info">
           <div className="profile-email">{user.email}</div>
-          <div className="profile-meta">Member since {formatDate(user.createdAt)}</div>
+          <div className="profile-since">Member since {fmtMember(user.createdAt)}</div>
         </div>
-        {averageRating !== null && (
-          <div className="profile-rating-summary">
-            <div className="profile-rating-value">{averageRating.toFixed(1)}</div>
-            <div className="profile-rating-stars">{starsDisplay(averageRating)}</div>
-            <div className="profile-rating-count">{reviews.length} review{reviews.length !== 1 ? 's' : ''}</div>
-          </div>
-        )}
-        {averageRating === null && (
-          <div className="profile-rating-summary">
-            <div className="profile-rating-count" style={{ fontSize: 13 }}>No reviews yet</div>
-          </div>
+        {isOwn && (
+          <Link to="/bookings" className="btn btn-secondary btn-sm">My Bookings</Link>
         )}
       </div>
 
-      {/* Reviews list */}
-      <div className="profile-section-title">Reviews received</div>
-      {reviews.length === 0 ? (
-        <div className="empty" style={{ padding: '32px 0' }}>
-          <p>No reviews yet.</p>
+      {/* Stats */}
+      <div className="profile-stats">
+        <div className="profile-stat">
+          <div className={`profile-stat-val ${overallAverage === null ? 'neutral' : ''}`}>
+            {overallAverage !== null ? overallAverage.toFixed(1) : '—'}
+          </div>
+          <div className="profile-stat-label">Overall rating</div>
         </div>
-      ) : (
-        <div className="review-list">
-          {reviews.map(r => (
-            <div key={r.id} className="review-card card">
-              <div className="review-card-top">
-                <div className="review-card-reviewer">
-                  <div className="review-card-avatar">
-                    {r.reviewer.email[0].toUpperCase()}
-                  </div>
-                  <div>
-                    <span className="review-card-email">{r.reviewer.email}</span>
-                    <span className="review-card-role">
-                      {r.role === 'renter' ? 'renter' : 'owner'}
-                    </span>
-                  </div>
-                </div>
-                <div className="review-card-meta">
-                  <span className="review-card-stars">{starsDisplay(r.rating)}</span>
-                  <span className="review-card-date">{formatDate(r.createdAt)}</span>
-                </div>
+        <div className="profile-stat">
+          <div className={`profile-stat-val ${averageAsOwner === null ? 'neutral' : ''}`}>
+            {averageAsOwner !== null ? averageAsOwner.toFixed(1) : '—'}
+          </div>
+          <div className="profile-stat-label">As owner</div>
+        </div>
+        <div className="profile-stat">
+          <div className={`profile-stat-val ${averageAsRenter === null ? 'neutral' : ''}`}>
+            {averageAsRenter !== null ? averageAsRenter.toFixed(1) : '—'}
+          </div>
+          <div className="profile-stat-label">As renter</div>
+        </div>
+      </div>
+
+      <div className="profile-body">
+
+        {/* Bio */}
+        <div className="profile-bio-block">
+          <div className="profile-bio-header">
+            <span className="profile-bio-title">About</span>
+            {isOwn && !editingBio && (
+              <button className="btn btn-ghost btn-sm" onClick={() => setEditingBio(true)}>
+                {user.bio ? 'Edit' : 'Add bio'}
+              </button>
+            )}
+          </div>
+
+          {editingBio ? (
+            <>
+              <textarea
+                className="profile-bio-textarea"
+                rows={3}
+                maxLength={200}
+                value={bioText}
+                onChange={e => setBioText(e.target.value)}
+                placeholder="Write a short bio…"
+                autoFocus
+              />
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button className="btn btn-primary btn-sm" onClick={saveBio} disabled={savingBio}>
+                  {savingBio ? 'Saving…' : 'Save'}
+                </button>
+                <button className="btn btn-ghost btn-sm" onClick={() => { setEditingBio(false); setBioText(user.bio ?? '') }}>
+                  Cancel
+                </button>
               </div>
-              {r.comment && (
-                <div className="review-card-comment">"{r.comment}"</div>
-              )}
-            </div>
-          ))}
+            </>
+          ) : user.bio ? (
+            <p className="profile-bio-text">{user.bio}</p>
+          ) : (
+            <p className="profile-bio-empty">{isOwn ? 'Tell others a bit about yourself.' : 'No bio yet.'}</p>
+          )}
         </div>
-      )}
+
+        {/* Reviews side by side */}
+        <div className="profile-reviews-grid">
+          <ReviewCol
+            title="As an Owner"
+            subtitle={`${asOwnerReviews.length} review${asOwnerReviews.length !== 1 ? 's' : ''} from renters`}
+            reviews={asOwnerReviews}
+            average={averageAsOwner}
+          />
+          <ReviewCol
+            title="As a Renter"
+            subtitle={`${asRenterReviews.length} review${asRenterReviews.length !== 1 ? 's' : ''} from owners`}
+            reviews={asRenterReviews}
+            average={averageAsRenter}
+          />
+        </div>
+
+      </div>
     </div>
   )
 }

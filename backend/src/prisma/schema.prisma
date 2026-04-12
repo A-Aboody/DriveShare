@@ -28,6 +28,7 @@ model User {
   receivedMessages  Message[]        @relation("ReceivedMessages")
   reviewsGiven      Review[]         @relation("ReviewsGiven")
   reviewsReceived   Review[]         @relation("ReviewsReceived")
+  bio               String           @default("")
   createdAt         DateTime         @default(now())
 }
 
