@@ -34,6 +34,7 @@ export type UserMinAggregateOutputType = {
   securityAnswer2: string | null
   securityQuestion3: string | null
   securityAnswer3: string | null
+  bio: string | null
   createdAt: Date | null
 }
 
@@ -47,6 +48,7 @@ export type UserMaxAggregateOutputType = {
   securityAnswer2: string | null
   securityQuestion3: string | null
   securityAnswer3: string | null
+  bio: string | null
   createdAt: Date | null
 }
 
@@ -60,6 +62,7 @@ export type UserCountAggregateOutputType = {
   securityAnswer2: number
   securityQuestion3: number
   securityAnswer3: number
+  bio: number
   createdAt: number
   _all: number
 }
@@ -75,6 +78,7 @@ export type UserMinAggregateInputType = {
   securityAnswer2?: true
   securityQuestion3?: true
   securityAnswer3?: true
+  bio?: true
   createdAt?: true
 }
 
@@ -88,6 +92,7 @@ export type UserMaxAggregateInputType = {
   securityAnswer2?: true
   securityQuestion3?: true
   securityAnswer3?: true
+  bio?: true
   createdAt?: true
 }
 
@@ -101,6 +106,7 @@ export type UserCountAggregateInputType = {
   securityAnswer2?: true
   securityQuestion3?: true
   securityAnswer3?: true
+  bio?: true
   createdAt?: true
   _all?: true
 }
@@ -187,6 +193,7 @@ export type UserGroupByOutputType = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio: string
   createdAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
@@ -221,12 +228,15 @@ export type UserWhereInput = {
   securityAnswer2?: Prisma.StringFilter<"User"> | string
   securityQuestion3?: Prisma.StringFilter<"User"> | string
   securityAnswer3?: Prisma.StringFilter<"User"> | string
+  bio?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   cars?: Prisma.CarListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
   watchlist?: Prisma.WatchlistEntryListRelationFilter
   sentMessages?: Prisma.MessageListRelationFilter
   receivedMessages?: Prisma.MessageListRelationFilter
+  reviewsGiven?: Prisma.ReviewListRelationFilter
+  reviewsReceived?: Prisma.ReviewListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -239,12 +249,15 @@ export type UserOrderByWithRelationInput = {
   securityAnswer2?: Prisma.SortOrder
   securityQuestion3?: Prisma.SortOrder
   securityAnswer3?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   cars?: Prisma.CarOrderByRelationAggregateInput
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   watchlist?: Prisma.WatchlistEntryOrderByRelationAggregateInput
   sentMessages?: Prisma.MessageOrderByRelationAggregateInput
   receivedMessages?: Prisma.MessageOrderByRelationAggregateInput
+  reviewsGiven?: Prisma.ReviewOrderByRelationAggregateInput
+  reviewsReceived?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -260,12 +273,15 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   securityAnswer2?: Prisma.StringFilter<"User"> | string
   securityQuestion3?: Prisma.StringFilter<"User"> | string
   securityAnswer3?: Prisma.StringFilter<"User"> | string
+  bio?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   cars?: Prisma.CarListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
   watchlist?: Prisma.WatchlistEntryListRelationFilter
   sentMessages?: Prisma.MessageListRelationFilter
   receivedMessages?: Prisma.MessageListRelationFilter
+  reviewsGiven?: Prisma.ReviewListRelationFilter
+  reviewsReceived?: Prisma.ReviewListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -278,6 +294,7 @@ export type UserOrderByWithAggregationInput = {
   securityAnswer2?: Prisma.SortOrder
   securityQuestion3?: Prisma.SortOrder
   securityAnswer3?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -297,6 +314,7 @@ export type UserScalarWhereWithAggregatesInput = {
   securityAnswer2?: Prisma.StringWithAggregatesFilter<"User"> | string
   securityQuestion3?: Prisma.StringWithAggregatesFilter<"User"> | string
   securityAnswer3?: Prisma.StringWithAggregatesFilter<"User"> | string
+  bio?: Prisma.StringWithAggregatesFilter<"User"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
@@ -310,12 +328,15 @@ export type UserCreateInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   cars?: Prisma.CarCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   watchlist?: Prisma.WatchlistEntryCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -328,12 +349,15 @@ export type UserUncheckedCreateInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   cars?: Prisma.CarUncheckedCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   watchlist?: Prisma.WatchlistEntryUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserUpdateInput = {
@@ -346,12 +370,15 @@ export type UserUpdateInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cars?: Prisma.CarUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   watchlist?: Prisma.WatchlistEntryUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -364,12 +391,15 @@ export type UserUncheckedUpdateInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cars?: Prisma.CarUncheckedUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   watchlist?: Prisma.WatchlistEntryUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -382,6 +412,7 @@ export type UserCreateManyInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
 }
 
@@ -395,6 +426,7 @@ export type UserUpdateManyMutationInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -408,6 +440,7 @@ export type UserUncheckedUpdateManyInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -421,6 +454,7 @@ export type UserCountOrderByAggregateInput = {
   securityAnswer2?: Prisma.SortOrder
   securityQuestion3?: Prisma.SortOrder
   securityAnswer3?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -434,6 +468,7 @@ export type UserMaxOrderByAggregateInput = {
   securityAnswer2?: Prisma.SortOrder
   securityQuestion3?: Prisma.SortOrder
   securityAnswer3?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -447,6 +482,7 @@ export type UserMinOrderByAggregateInput = {
   securityAnswer2?: Prisma.SortOrder
   securityQuestion3?: Prisma.SortOrder
   securityAnswer3?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -533,6 +569,34 @@ export type UserUpdateOneRequiredWithoutReceivedMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedMessagesInput, Prisma.UserUpdateWithoutReceivedMessagesInput>, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
 }
 
+export type UserCreateNestedOneWithoutReviewsGivenInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsGivenInput, Prisma.UserUncheckedCreateWithoutReviewsGivenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsGivenInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReviewsReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReviewsGivenNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsGivenInput, Prisma.UserUncheckedCreateWithoutReviewsGivenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsGivenInput
+  upsert?: Prisma.UserUpsertWithoutReviewsGivenInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsGivenInput, Prisma.UserUpdateWithoutReviewsGivenInput>, Prisma.UserUncheckedUpdateWithoutReviewsGivenInput>
+}
+
+export type UserUpdateOneRequiredWithoutReviewsReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsReceivedInput
+  upsert?: Prisma.UserUpsertWithoutReviewsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsReceivedInput, Prisma.UserUpdateWithoutReviewsReceivedInput>, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>
+}
+
 export type UserCreateWithoutCarsInput = {
   id?: string
   email: string
@@ -543,11 +607,14 @@ export type UserCreateWithoutCarsInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   watchlist?: Prisma.WatchlistEntryCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserUncheckedCreateWithoutCarsInput = {
@@ -560,11 +627,14 @@ export type UserUncheckedCreateWithoutCarsInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   watchlist?: Prisma.WatchlistEntryUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserCreateOrConnectWithoutCarsInput = {
@@ -593,11 +663,14 @@ export type UserUpdateWithoutCarsInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   watchlist?: Prisma.WatchlistEntryUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCarsInput = {
@@ -610,11 +683,14 @@ export type UserUncheckedUpdateWithoutCarsInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   watchlist?: Prisma.WatchlistEntryUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserCreateWithoutBookingsInput = {
@@ -627,11 +703,14 @@ export type UserCreateWithoutBookingsInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   cars?: Prisma.CarCreateNestedManyWithoutOwnerInput
   watchlist?: Prisma.WatchlistEntryCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserUncheckedCreateWithoutBookingsInput = {
@@ -644,11 +723,14 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   cars?: Prisma.CarUncheckedCreateNestedManyWithoutOwnerInput
   watchlist?: Prisma.WatchlistEntryUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserCreateOrConnectWithoutBookingsInput = {
@@ -677,11 +759,14 @@ export type UserUpdateWithoutBookingsInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cars?: Prisma.CarUpdateManyWithoutOwnerNestedInput
   watchlist?: Prisma.WatchlistEntryUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -694,11 +779,14 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cars?: Prisma.CarUncheckedUpdateManyWithoutOwnerNestedInput
   watchlist?: Prisma.WatchlistEntryUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserCreateWithoutWatchlistInput = {
@@ -711,11 +799,14 @@ export type UserCreateWithoutWatchlistInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   cars?: Prisma.CarCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserUncheckedCreateWithoutWatchlistInput = {
@@ -728,11 +819,14 @@ export type UserUncheckedCreateWithoutWatchlistInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   cars?: Prisma.CarUncheckedCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserCreateOrConnectWithoutWatchlistInput = {
@@ -761,11 +855,14 @@ export type UserUpdateWithoutWatchlistInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cars?: Prisma.CarUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWatchlistInput = {
@@ -778,11 +875,14 @@ export type UserUncheckedUpdateWithoutWatchlistInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cars?: Prisma.CarUncheckedUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserCreateWithoutSentMessagesInput = {
@@ -795,11 +895,14 @@ export type UserCreateWithoutSentMessagesInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   cars?: Prisma.CarCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   watchlist?: Prisma.WatchlistEntryCreateNestedManyWithoutUserInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -812,11 +915,14 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   cars?: Prisma.CarUncheckedCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   watchlist?: Prisma.WatchlistEntryUncheckedCreateNestedManyWithoutUserInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -834,11 +940,14 @@ export type UserCreateWithoutReceivedMessagesInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   cars?: Prisma.CarCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   watchlist?: Prisma.WatchlistEntryCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserUncheckedCreateWithoutReceivedMessagesInput = {
@@ -851,11 +960,14 @@ export type UserUncheckedCreateWithoutReceivedMessagesInput = {
   securityAnswer2: string
   securityQuestion3: string
   securityAnswer3: string
+  bio?: string
   createdAt?: Date | string
   cars?: Prisma.CarUncheckedCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   watchlist?: Prisma.WatchlistEntryUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutRevieweeInput
 }
 
 export type UserCreateOrConnectWithoutReceivedMessagesInput = {
@@ -884,11 +996,14 @@ export type UserUpdateWithoutSentMessagesInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cars?: Prisma.CarUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   watchlist?: Prisma.WatchlistEntryUpdateManyWithoutUserNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -901,11 +1016,14 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cars?: Prisma.CarUncheckedUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   watchlist?: Prisma.WatchlistEntryUncheckedUpdateManyWithoutUserNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserUpsertWithoutReceivedMessagesInput = {
@@ -929,11 +1047,14 @@ export type UserUpdateWithoutReceivedMessagesInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cars?: Prisma.CarUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   watchlist?: Prisma.WatchlistEntryUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutRevieweeNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
@@ -946,11 +1067,206 @@ export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
   securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
   securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
   securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cars?: Prisma.CarUncheckedUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   watchlist?: Prisma.WatchlistEntryUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+}
+
+export type UserCreateWithoutReviewsGivenInput = {
+  id?: string
+  email: string
+  password: string
+  securityQuestion1: string
+  securityAnswer1: string
+  securityQuestion2: string
+  securityAnswer2: string
+  securityQuestion3: string
+  securityAnswer3: string
+  bio?: string
+  createdAt?: Date | string
+  cars?: Prisma.CarCreateNestedManyWithoutOwnerInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
+  watchlist?: Prisma.WatchlistEntryCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutRevieweeInput
+}
+
+export type UserUncheckedCreateWithoutReviewsGivenInput = {
+  id?: string
+  email: string
+  password: string
+  securityQuestion1: string
+  securityAnswer1: string
+  securityQuestion2: string
+  securityAnswer2: string
+  securityQuestion3: string
+  securityAnswer3: string
+  bio?: string
+  createdAt?: Date | string
+  cars?: Prisma.CarUncheckedCreateNestedManyWithoutOwnerInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  watchlist?: Prisma.WatchlistEntryUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutRevieweeInput
+}
+
+export type UserCreateOrConnectWithoutReviewsGivenInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsGivenInput, Prisma.UserUncheckedCreateWithoutReviewsGivenInput>
+}
+
+export type UserCreateWithoutReviewsReceivedInput = {
+  id?: string
+  email: string
+  password: string
+  securityQuestion1: string
+  securityAnswer1: string
+  securityQuestion2: string
+  securityAnswer2: string
+  securityQuestion3: string
+  securityAnswer3: string
+  bio?: string
+  createdAt?: Date | string
+  cars?: Prisma.CarCreateNestedManyWithoutOwnerInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
+  watchlist?: Prisma.WatchlistEntryCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+}
+
+export type UserUncheckedCreateWithoutReviewsReceivedInput = {
+  id?: string
+  email: string
+  password: string
+  securityQuestion1: string
+  securityAnswer1: string
+  securityQuestion2: string
+  securityAnswer2: string
+  securityQuestion3: string
+  securityAnswer3: string
+  bio?: string
+  createdAt?: Date | string
+  cars?: Prisma.CarUncheckedCreateNestedManyWithoutOwnerInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  watchlist?: Prisma.WatchlistEntryUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+}
+
+export type UserCreateOrConnectWithoutReviewsReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+}
+
+export type UserUpsertWithoutReviewsGivenInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsGivenInput, Prisma.UserUncheckedUpdateWithoutReviewsGivenInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsGivenInput, Prisma.UserUncheckedCreateWithoutReviewsGivenInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsGivenInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsGivenInput, Prisma.UserUncheckedUpdateWithoutReviewsGivenInput>
+}
+
+export type UserUpdateWithoutReviewsGivenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion1?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer1?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion2?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cars?: Prisma.CarUpdateManyWithoutOwnerNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  watchlist?: Prisma.WatchlistEntryUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutRevieweeNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsGivenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion1?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer1?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion2?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cars?: Prisma.CarUncheckedUpdateManyWithoutOwnerNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
+  watchlist?: Prisma.WatchlistEntryUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutRevieweeNestedInput
+}
+
+export type UserUpsertWithoutReviewsReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsReceivedInput, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsReceivedInput, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>
+}
+
+export type UserUpdateWithoutReviewsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion1?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer1?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion2?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cars?: Prisma.CarUpdateManyWithoutOwnerNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  watchlist?: Prisma.WatchlistEntryUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion1?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer1?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion2?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer2?: Prisma.StringFieldUpdateOperationsInput | string
+  securityQuestion3?: Prisma.StringFieldUpdateOperationsInput | string
+  securityAnswer3?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cars?: Prisma.CarUncheckedUpdateManyWithoutOwnerNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
+  watchlist?: Prisma.WatchlistEntryUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 
@@ -964,6 +1280,8 @@ export type UserCountOutputType = {
   watchlist: number
   sentMessages: number
   receivedMessages: number
+  reviewsGiven: number
+  reviewsReceived: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -972,6 +1290,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   watchlist?: boolean | UserCountOutputTypeCountWatchlistArgs
   sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
   receivedMessages?: boolean | UserCountOutputTypeCountReceivedMessagesArgs
+  reviewsGiven?: boolean | UserCountOutputTypeCountReviewsGivenArgs
+  reviewsReceived?: boolean | UserCountOutputTypeCountReviewsReceivedArgs
 }
 
 /**
@@ -1019,6 +1339,20 @@ export type UserCountOutputTypeCountReceivedMessagesArgs<ExtArgs extends runtime
   where?: Prisma.MessageWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewsGivenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1030,12 +1364,15 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   securityAnswer2?: boolean
   securityQuestion3?: boolean
   securityAnswer3?: boolean
+  bio?: boolean
   createdAt?: boolean
   cars?: boolean | Prisma.User$carsArgs<ExtArgs>
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   watchlist?: boolean | Prisma.User$watchlistArgs<ExtArgs>
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
+  reviewsGiven?: boolean | Prisma.User$reviewsGivenArgs<ExtArgs>
+  reviewsReceived?: boolean | Prisma.User$reviewsReceivedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1049,6 +1386,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   securityAnswer2?: boolean
   securityQuestion3?: boolean
   securityAnswer3?: boolean
+  bio?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -1062,6 +1400,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   securityAnswer2?: boolean
   securityQuestion3?: boolean
   securityAnswer3?: boolean
+  bio?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -1075,16 +1414,19 @@ export type UserSelectScalar = {
   securityAnswer2?: boolean
   securityQuestion3?: boolean
   securityAnswer3?: boolean
+  bio?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "securityQuestion1" | "securityAnswer1" | "securityQuestion2" | "securityAnswer2" | "securityQuestion3" | "securityAnswer3" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "securityQuestion1" | "securityAnswer1" | "securityQuestion2" | "securityAnswer2" | "securityQuestion3" | "securityAnswer3" | "bio" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cars?: boolean | Prisma.User$carsArgs<ExtArgs>
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   watchlist?: boolean | Prisma.User$watchlistArgs<ExtArgs>
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
+  reviewsGiven?: boolean | Prisma.User$reviewsGivenArgs<ExtArgs>
+  reviewsReceived?: boolean | Prisma.User$reviewsReceivedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1098,6 +1440,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     watchlist: Prisma.$WatchlistEntryPayload<ExtArgs>[]
     sentMessages: Prisma.$MessagePayload<ExtArgs>[]
     receivedMessages: Prisma.$MessagePayload<ExtArgs>[]
+    reviewsGiven: Prisma.$ReviewPayload<ExtArgs>[]
+    reviewsReceived: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1109,6 +1453,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     securityAnswer2: string
     securityQuestion3: string
     securityAnswer3: string
+    bio: string
     createdAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1509,6 +1854,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   watchlist<T extends Prisma.User$watchlistArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$watchlistArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WatchlistEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receivedMessages<T extends Prisma.User$receivedMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewsGiven<T extends Prisma.User$reviewsGivenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewsReceived<T extends Prisma.User$reviewsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1547,6 +1894,7 @@ export interface UserFieldRefs {
   readonly securityAnswer2: Prisma.FieldRef<"User", 'String'>
   readonly securityQuestion3: Prisma.FieldRef<"User", 'String'>
   readonly securityAnswer3: Prisma.FieldRef<"User", 'String'>
+  readonly bio: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
@@ -2058,6 +2406,54 @@ export type User$receivedMessagesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.reviewsGiven
+ */
+export type User$reviewsGivenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * User.reviewsReceived
+ */
+export type User$reviewsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**
