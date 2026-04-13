@@ -1,18 +1,20 @@
 import { User } from '../entities/user.entity';
 
 export class SessionManager {
-  private static instance: SessionManager;
+  private static instance: SessionManager; // holds the single shared instance
   private currentUser: User | null = null;
   private sessionToken: string | null = null;
   private sessionStartedAt: Date | null = null;
 
-  private constructor() {}
+  private constructor() {} // private which prevents creating instances with "new"
+
 
   static getInstance(): SessionManager {
+     // global access point to the single instance
     if (!SessionManager.instance) {
-      SessionManager.instance = new SessionManager();
+      SessionManager.instance = new SessionManager(); // created only once
     }
-    return SessionManager.instance;
+    return SessionManager.instance;  // always returns same instance
   }
 
   startSession(user: User, token: string): void {

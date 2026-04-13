@@ -18,7 +18,7 @@ const prisma = new PrismaClient({ adapter });
 function hashAnswer(answer: string): string {
   return createHmac('sha256', HMAC_SECRET).update(answer).digest('hex');
 }
-
+// hashes password before storing it in the database
 function hashPassword(password: string): string {
   return createHmac('sha256', HMAC_SECRET).update(password).digest('hex');
 }
@@ -76,6 +76,7 @@ export class AuthService {
     const user = await prisma.user.create({
       data: {
         email: email.toLowerCase().trim(),
+        // storing hashed password and answers for security questions
         password: hashPassword(password),
         securityQuestion1,
         securityAnswer1: hashAnswer(securityAnswer1.toLowerCase().trim()),
@@ -152,8 +153,9 @@ export class AuthService {
     if (!user) {
       throw new BadRequestException('No account found with that email');
     }
-
+    // Each handler validates one answer and forwards to the next if valid
     const passed = SecurityQuestionHandler.verifyRecoveryAnswers(user as any, answers);
+    // If any handler in the chain fails, the entire process stops
     if (!passed) {
       throw new UnauthorizedException('One or more security answers are incorrect');
     }
